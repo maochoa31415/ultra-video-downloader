@@ -9,7 +9,6 @@
       :disabled="loading"
       flat
       hide-details
-      :loading="loading"
       placeholder="Put the video URL here"
       rounded
       type="url"
