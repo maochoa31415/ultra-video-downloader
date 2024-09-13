@@ -6,7 +6,7 @@
   },
   "keywords": ["vue", "vue3", "vuetify", "frontend"],
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 3888",
     "dev-network": "vite --host",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
