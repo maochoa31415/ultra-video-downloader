@@ -81,12 +81,13 @@
 
 <script setup lang="ts">
   import { computed, ref } from 'vue'
-  import { useAppStore } from '@/stores/app'
   import { storeToRefs } from 'pinia'
+
+  import { API_DOWNLOAD, ENV_DEVELOP } from '@/constants'
+  import { useAppStore } from '@/stores/app'
 
   const store = useAppStore()
   const { url: videoUrl } = storeToRefs(store)
-  const API_DOWNLOAD = import.meta.env.VITE_API_DOWNLOAD
 
   interface Props {
     id: string | number;
@@ -100,9 +101,9 @@
   }
 
   const props = withDefaults(defineProps<Props>(), {
-    resolution: '[1280x720]',
-    formatNote: '[format_note]',
-    extension: 'webm',
+    resolution: '', // [1280x720]
+    formatNote: '', //[format_note]
+    extension: '', // webm
     vcodec: 'none',
     acodec: 'none',
   })
@@ -201,7 +202,7 @@
       downloadLink.click()
       downloadLink.remove()
     } catch (e) {
-      import.meta.env.DEV && console.log(e)
+      ENV_DEVELOP && console.log(e)
       alert('Download error')
       downloading.value = false
     }

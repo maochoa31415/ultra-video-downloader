@@ -9,5 +9,12 @@
 </template>
 
 <script lang="ts" setup>
-  //
+  import { onMounted } from 'vue'
+  import { useAppStore } from '@/stores/app'
+
+  const store = useAppStore()
+
+  onMounted(() => {
+    store.fetchToken()
+  })
 </script>

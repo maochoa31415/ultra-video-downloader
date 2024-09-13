@@ -1,15 +1,16 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 
-import { INDEX_NOT_FOUND } from '@/constants'
+import {
+  API_CANCEL_DOWNLOAD,
+  API_INFO,
+  API_TOKEN,
+  INDEX_NOT_FOUND,
+} from '@/constants'
 import { request } from '@/libs/request'
 import type { VideoInfo } from '@/interfaces/VideoInfo'
 import { type FilterType, FilterTypes } from '@/types/FilterTypes'
 import type { Format } from '@/interfaces/Format'
-
-const API_CANCEL_DOWNLOAD = import.meta.env.VITE_API_CANCEL_DOWNLOAD
-const API_INFO_URL = import.meta.env.VITE_API_INFO_URL
-const API_TOKEN = import.meta.env.VITE_API_TOKEN
 
 export const useAppStore = defineStore('appStore', () => {
   // State
@@ -133,7 +134,7 @@ export const useAppStore = defineStore('appStore', () => {
 
     const response = await request({
       verb: 'POST',
-      url: API_INFO_URL,
+      url: API_INFO,
       data,
       headers: {
         token: token.value,

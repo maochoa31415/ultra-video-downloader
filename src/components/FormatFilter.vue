@@ -1,12 +1,20 @@
 <template>
   <v-btn-toggle v-model="optionSelected" color="primary" rounded="xl">
-    <v-btn
+    <v-tooltip
       v-for="(option, index) in options"
       :key="index"
-      @click="setFilterType(option.type)"
+      location="bottom"
+      :text="option.tooltip"
     >
-      <v-icon :icon="option.icon" />
-    </v-btn>
+      <template #activator="{ props }">
+        <v-btn
+          v-bind="props"
+          @click="setFilterType(option.type)"
+        >
+          <v-icon :icon="option.icon" />
+        </v-btn>
+      </template>
+    </v-tooltip>
   </v-btn-toggle>
 </template>
 
@@ -25,14 +33,17 @@
     {
       type: 'video',
       icon: 'mdi-video',
+      tooltip: 'Only video',
     },
     {
       type: 'audio',
       icon: 'mdi-volume-high',
+      tooltip: 'Only audio',
     },
     {
       type: 'full',
       icon: 'mdi-television-speaker',
+      tooltip: 'Video and audio',
     },
   ])
 
