@@ -1,7 +1,7 @@
 <template>
   <v-card
     class="format-item rounded-lg overflow-hidden position-relative user-select-none"
-    :class="{ 'video-audio': hasVideoAudio }"
+    :class="classes"
     elevation="0"
   >
     <div class="d-flex">
@@ -11,26 +11,25 @@
             <v-icon class="me-2" icon="mdi mdi-monitor-screenshot" />
             {{ props.resolution }}
           </div>
-          <div class="ms-auto me-2">
-            {{ fileSize || "" }}
-          </div>
           <v-chip size="small">
             {{ props.extension }}
           </v-chip>
         </div>
         <v-divider />
         <div class="d-flex align-center">
-          <span class="me-auto">{{ formatNote }}</span>
           <div class="d-flex user-select-none">
             <!-- If have audio -->
-            <v-icon v-if="props.acodec !== 'none'" color="#198754" icon="mdi-headphones" />
+            <v-icon v-if="hasAudio" color="#198754" icon="mdi-headphones" />
             <!-- If no have audio -->
-            <v-icon v-if="props.acodec === 'none'" color="#dc3545" icon="mdi-headphones-off" />
+            <v-icon v-if="!hasAudio" color="#dc3545" icon="mdi-headphones-off" />
             <!-- If have video -->
-            <v-icon v-if="props.vcodec !== 'none'" color="#198754" icon="mdi-video" />
+            <v-icon v-if="hasVideo" color="#198754" icon="mdi-video" />
             <!-- If no have video -->
-            <v-icon v-if="props.vcodec === 'none'" color="#dc3545" icon="mdi-video-off" />
+            <v-icon v-if="!hasVideo" color="#dc3545" icon="mdi-video-off" />
           </div>
+          <span class="ms-auto">
+            {{ fileSize || "" }}
+          </span>
         </div>
       </div>
 
@@ -82,12 +81,14 @@
 <script setup lang="ts">
   import { computed, ref } from 'vue'
   import { storeToRefs } from 'pinia'
+  import { useTheme } from 'vuetify'
 
-  import { API_DOWNLOAD, ENV_DEVELOP } from '@/constants'
+  import { API_DOWNLOAD, ENV_DEVELOP, THEME_LIGHT } from '@/constants'
   import { useAppStore } from '@/stores/app'
 
   const store = useAppStore()
   const { url: videoUrl } = storeToRefs(store)
+  const theme = useTheme()
 
   interface Props {
     id: string | number;
@@ -102,7 +103,7 @@
 
   const props = withDefaults(defineProps<Props>(), {
     resolution: '', // [1280x720]
-    formatNote: '', //[format_note]
+    formatNote: '', // [format_note]
     extension: '', // webm
     vcodec: 'none',
     acodec: 'none',
@@ -142,8 +143,17 @@
       props.acodec !== 'none' && props.vcodec !== 'none' && !downloading.value
     )
   })
-  const formatNote = computed(() => {
-    return props.formatNote.replace('[format_note]', '')
+  const hasAudio = computed<boolean>(() => {
+    return props.acodec !== 'none'
+  })
+  const hasVideo = computed<boolean>(() => {
+    return props.vcodec !== 'none'
+  })
+  const classes = computed(() => {
+    return {
+      'video-audio': hasVideoAudio.value,
+      'light-theme': theme.global.name.value === THEME_LIGHT,
+    }
   })
 
   // Methods
@@ -218,6 +228,14 @@
 .format-item {
   &.video-audio {
     border: solid 1px #009688;
+
+    &.light-theme {
+      background-color: #e0f2f1;
+    }
+  }
+
+  &.light-theme {
+    background-color: #eee;
   }
 
   .download-progress {

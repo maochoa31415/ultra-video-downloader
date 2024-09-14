@@ -14,4 +14,5 @@ export const API_TOKEN = `${API_URL}${VITE_API_PATH_GET_TOKEN}`
 export const API_INFO = `${API_URL}${VITE_API_PATH_INFO}`
 export const API_DOWNLOAD = `${API_URL}${VITE_API_PATH_DOWNLOAD}`
 export const API_CANCEL_DOWNLOAD = `${API_URL}${VITE_API_PATH_CANCEL_DOWNLOAD}`
-export const INDEX_NOT_FOUND = -1;
+export const INDEX_NOT_FOUND = -1
+export const THEME_LIGHT = 'light'
