@@ -1,5 +1,5 @@
-import type { Format } from "./Format";
-import type { Thumbnail } from "./Thumbnail";
+import type { Format } from './Format'
+import type { Thumbnail } from './Thumbnail'
 
 export interface VideoInfo {
   formats: Array<Format>;
