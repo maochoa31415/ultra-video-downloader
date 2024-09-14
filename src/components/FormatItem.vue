@@ -98,7 +98,7 @@
     vcodec?: string;
     acodec?: string;
     fileName?: string;
-    fileSize: string | number;
+    fileSize?: string | number;
   }
 
   const props = withDefaults(defineProps<Props>(), {
