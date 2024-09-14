@@ -1,5 +1,10 @@
 <template>
-  <v-btn-toggle v-model="optionSelected" color="primary" rounded="xl">
+  <v-btn-toggle
+    v-model="optionSelected"
+    class="format-filter"
+    color="primary"
+    rounded="xl"
+  >
     <v-tooltip
       v-for="(option, index) in options"
       :key="index"
@@ -79,5 +84,13 @@
 </script>
 
 <style scoped lang="scss">
+.format-filter {
+  &.v-theme--light {
+    border: solid 1px #eeeeee;
+  }
 
+  &.v-theme--dark {
+    border: solid 1px rgba(66, 66, 66, .8);
+  }
+}
 </style>

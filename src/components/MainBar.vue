@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar class="main-bar px-6">
+  <v-app-bar class="main-bar px-6" color="#263238">
     <template #prepend>
       <img
         alt="Ultra Video Downloader"
@@ -13,6 +13,9 @@
       Ultra Video Downloader
     </v-app-bar-title>
     <url-setter v-if="isDownloadPage" />
+    <template #append>
+      <btn-set-theme />
+    </template>
     <v-spacer />
   </v-app-bar>
 </template>

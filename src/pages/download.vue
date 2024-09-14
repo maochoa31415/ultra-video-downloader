@@ -6,22 +6,40 @@
       <v-container class="download-container" max-width="80%">
         <v-row class="h-100" tag="aside">
           <v-col class="d-flex flex-column" cols="4">
-            <v-img
-              alt="Thumbnail"
-              cover
-              max-height="320"
-              rounded
-              :src="thumbnail"
-            >
-              <template #placeholder>
-                <div class="d-flex align-center justify-center fill-height">
-                  <v-progress-circular
-                    color="primary"
-                    indeterminate
-                  />
+            <v-hover>
+              <template #default="{ isHovering, props }">
+                <div v-bind="props" class="image-container position-relative">
+                  <v-img
+                    alt="Thumbnail"
+                    cover
+                    max-height="320"
+                    rounded
+                    :src="thumbnail"
+                  >
+                    <template #placeholder>
+                      <div class="d-flex align-center justify-center fill-height">
+                        <v-progress-circular
+                          color="primary"
+                          indeterminate
+                        />
+                      </div>
+                    </template>
+                  </v-img>
+                  <v-scroll-y-transition>
+                    <v-btn
+                      v-if="isHovering"
+                      class="btn-download position-absolute"
+                      color="primary"
+                      elevation="10"
+                      :href="thumbnail"
+                      icon="mdi-download"
+                      size="x-large"
+                      target="_blank"
+                    />
+                  </v-scroll-y-transition>
                 </div>
               </template>
-            </v-img>
+            </v-hover>
             <dl class="d-flex flex-column mb-0 mt-3">
               <dt class="font-weight-bold">Title</dt>
               <dd class="text-body-2 mb-3 pl-3">{{ videoInfo.title }}</dd>
@@ -37,7 +55,7 @@
           </v-col>
 
           <v-col cols="8">
-            <v-toolbar class="rounded-lg">
+            <v-toolbar class="rounded-lg" color="transparent">
               <div class="d-flex align-center justify-space-between px-3 w-100">
                 <v-toolbar-title class="section-title user-select-none">
                   Download list
@@ -54,7 +72,7 @@
                 format-items-container
                 position-relative
                 mt-2
-                overflow-y-scroll
+                overflow-y-auto
               "
             >
               <div
@@ -133,6 +151,14 @@
 .download-page {
   .download-container {
     height: calc(100vh - 64px) !important;
+
+    .image-container {
+      .btn-download {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
   }
 
   .description {
