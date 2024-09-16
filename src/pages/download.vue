@@ -1,10 +1,10 @@
 <template>
-  <v-layout class="download-page">
+  <v-layout class="download-page h-100">
     <main-bar />
 
     <v-main>
-      <v-container class="download-container" max-width="80%">
-        <v-row class="h-100" tag="aside">
+      <v-container class="download-container d-flex pa-0 h-100" max-width="60%">
+        <v-row class="h-100 mt-4" tag="section">
           <v-col class="d-flex flex-column" cols="4">
             <v-hover>
               <template #default="{ isHovering, props }">
@@ -40,7 +40,7 @@
                 </div>
               </template>
             </v-hover>
-            <dl class="d-flex flex-column mb-0 mt-3">
+            <dl class="d-flex flex-column flex-fill mb-0 mt-3">
               <dt class="font-weight-bold">Title</dt>
               <dd class="text-body-2 mb-3 pl-3">{{ videoInfo.title }}</dd>
               <dt class="font-weight-bold">Duration</dt>
@@ -54,8 +54,8 @@
             </dl>
           </v-col>
 
-          <v-col cols="8">
-            <v-toolbar class="rounded-lg" color="transparent">
+          <v-col class="d-flex flex-column" cols="8">
+            <v-toolbar color="rgba(0,0,0,0)">
               <div class="d-flex align-center justify-space-between px-3 w-100">
                 <v-toolbar-title class="section-title user-select-none">
                   Download list
@@ -71,8 +71,8 @@
               class="
                 format-items-container
                 position-relative
-                mt-2
                 overflow-y-auto
+                flex-fill
               "
             >
               <div
@@ -150,8 +150,6 @@
 <style scoped lang="scss">
 .download-page {
   .download-container {
-    height: calc(100vh - 64px) !important;
-
     .image-container {
       .btn-download {
         top: 50%;
@@ -170,10 +168,6 @@
 
   .section-title {
     flex: none;
-  }
-
-  .format-items-container {
-    height: calc(100% - 40px);
   }
 }
 </style>
